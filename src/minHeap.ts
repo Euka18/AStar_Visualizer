@@ -1,20 +1,20 @@
-class minHeap {
-  constructor() {
-    this.heap = [];
-  }
+import { GridObject } from "./Types";
 
-  insert(value) {
+export class minHeap {
+  constructor(public heap: GridObject[] = []) {}
+
+  insert(value: GridObject): void {
     this.heap.push(value);
     this.bubbleUp(this.heap.length - 1);
   }
 
-  bubbleUp(index) {
+  bubbleUp(index: number): void {
     while (index > 0) {
       //Parents Childs Formula: 2 * index + 1 (left), 2 * index + 2 (right)
       //From Child to Parent: (index - 1) / 2
       const parentIndex = Math.floor((index - 1) / 2);
 
-      if (this.heap[index] < this.heap[parentIndex]) {
+      if (this.heap[index].f < this.heap[parentIndex].f) {
         let temp = this.heap[parentIndex];
         this.heap[parentIndex] = this.heap[index];
         this.heap[index] = temp;
@@ -25,9 +25,7 @@ class minHeap {
     }
   }
 
-  removeMin() {
-    if (this.heap.length === 0) return null;
-
+  removeMin(): GridObject {
     const minValue = this.heap[0]; //Top most value is the smallest
     this.heap[0] = this.heap[this.heap.length - 1]; //Swape the smallest element with the last element
     this.heap.pop(); //Remove the last elment of the heap
@@ -36,7 +34,7 @@ class minHeap {
     return minValue;
   }
 
-  bubbleDown(index) {
+  bubbleDown(index: number): void {
     const sizeOfHeap = this.heap.length;
 
     //While we have a left child on the heap
@@ -46,12 +44,12 @@ class minHeap {
       //If a rightchild exists and it is smaller than the left child, than this is our check value index
       if (
         2 * index + 2 < sizeOfHeap &&
-        this.heap[2 * index + 2] < this.heap[smallestChildIndex]
+        this.heap[2 * index + 2].f < this.heap[smallestChildIndex].f
       ) {
         smallestChildIndex = 2 * index + 2;
       }
 
-      if (this.heap[index] > this.heap[smallestChildIndex]) {
+      if (this.heap[index].f > this.heap[smallestChildIndex].f) {
         const temp = this.heap[index];
         this.heap[index] = this.heap[smallestChildIndex];
         this.heap[smallestChildIndex] = temp;

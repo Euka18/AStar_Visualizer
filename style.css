@@ -17,7 +17,7 @@ body {
 }
 .grid {
   display: grid;
-  grid-template-columns: repeat(25, 1fr);
+  grid-template-columns: repeat(20, 1fr);
 }
 .grid .tile {
   width: 3rem;
@@ -30,7 +30,10 @@ body {
   background-color: rgb(24, 22, 23);
 }
 .tile.neighbour {
-  background-color: rgb(107, 96, 96);
+  background-color: rgb(170, 159, 159);
+}
+.tile.searched {
+  background-color: rgb(151, 19, 85);
 }
 .tile.start {
   background-color: rgb(30, 134, 30);

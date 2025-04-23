@@ -12,7 +12,7 @@ const NeighbourDirections: readonly NeighbourDirection[] = [
 ];
 
 //Euclidean Heuristik
-function calculateHeuristic(a: GridObject, b: GridObject): number {
+export function calculateHeuristic(a: GridObject, b: GridObject): number {
   const dx = Math.pow(a.x - b.x, 2);
   const dy = Math.pow(a.y - b.y, 2);
   return Math.sqrt(dx + dy);
@@ -44,6 +44,7 @@ export function getNeighbours(
 
     //Get the neighbour
     const neighbour = gridTiles[newXPosition][newYPosition];
+    neighbour.tile.classList.add("neighbour");
 
     if (neighbour.isObstacle) continue;
 
@@ -64,4 +65,8 @@ export function getNeighbours(
   }
 
   return neighbours;
+}
+
+export function wait(milliseconds: number) {
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
 }
