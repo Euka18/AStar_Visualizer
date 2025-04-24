@@ -1,6 +1,6 @@
 import { minHeap } from "./minHeap.ts";
 import { GridObject } from "./Types.ts";
-import { getNeighbours, wait } from "./utils.ts";
+import { calculateHeuristicManhatten, getNeighbours, wait } from "./utils.ts";
 
 export async function AStar(
   startTile: GridObject,
@@ -10,9 +10,16 @@ export async function AStar(
   sizeY: number
 ) {
   let openList = new minHeap();
+  let openSetMap = new Map<string, GridObject>();
   let closeList = new Set<string>();
   let currentNode: GridObject = startTile;
+
+  //Set the Startnodes values!
+  startTile.g = 0;
+  startTile.h = calculateHeuristicManhatten(startTile, endTile);
+  startTile.f = startTile.h;
   openList.insert(startTile);
+  openSetMap.set(`${startTile.x},${startTile.y}`, startTile);
 
   while (openList.heap.length > 0) {
     const currentNode = openList.removeMin();
@@ -28,7 +35,7 @@ export async function AStar(
       return;
     }
 
-    closeList.add(`${currentNode.x}, ${currentNode.y}`);
+    closeList.add(`${currentNode.x},${currentNode.y}`);
     currentNode.tile.classList.add("searched");
 
     const newNodes = getNeighbours(
@@ -40,8 +47,25 @@ export async function AStar(
     );
 
     for (let node of newNodes) {
-      if (!closeList.has(`${node.x}, ${node.y}`)) {
+      const key = `${node.x},${node.y}`;
+
+      if (closeList.has(key)) continue;
+
+      //Take the node out of the map (lookup of O(1) because of the hashing)
+      const existingNode = openSetMap.get(key);
+
+      if (!existingNode) {
+        //Node is not in the openlist
         openList.insert(node);
+        openSetMap.set(key, node);
+      } else if (node.g < existingNode.g) {
+        //Found better path
+        existingNode.g = node.g;
+        existingNode.h = node.h;
+        existingNode.f = node.f;
+        existingNode.parent = node.parent;
+
+        openList.insert(existingNode);
       }
     }
 
