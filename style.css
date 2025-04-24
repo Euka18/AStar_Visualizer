@@ -35,6 +35,9 @@ body {
 .tile.searched {
   background-color: rgb(151, 19, 85);
 }
+.tile.path {
+  background-color: rgb(30, 134, 30);
+}
 .tile.start {
   background-color: rgb(30, 134, 30);
 }

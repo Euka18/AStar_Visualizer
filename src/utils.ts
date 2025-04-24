@@ -12,10 +12,20 @@ const NeighbourDirections: readonly NeighbourDirection[] = [
 ];
 
 //Euclidean Heuristik
-export function calculateHeuristic(a: GridObject, b: GridObject): number {
+export function calculateHeuristicEuclidean(
+  a: GridObject,
+  b: GridObject
+): number {
   const dx = Math.pow(a.x - b.x, 2);
   const dy = Math.pow(a.y - b.y, 2);
   return Math.sqrt(dx + dy);
+}
+
+export function calculateHeuristicManhatten(
+  a: GridObject,
+  b: GridObject
+): number {
+  return Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
 }
 
 export function getNeighbours(
@@ -33,7 +43,7 @@ export function getNeighbours(
     const newXPosition = node.x + dir.x;
     const newYPosition = node.y + dir.y;
 
-    //If there is no neighbour
+    //If there is no neighbour (out of bounds)
     if (
       newXPosition >= sizeX ||
       newXPosition < 0 ||
@@ -55,10 +65,9 @@ export function getNeighbours(
     //If we have a better path
     if (tentativeG < neighbour.g) {
       neighbour.g = tentativeG;
-      neighbour.h = calculateHeuristic(neighbour, endNode);
+      neighbour.h = calculateHeuristicManhatten(neighbour, endNode);
       neighbour.f = neighbour.g + neighbour.h;
-      // Wichtig für Pfad-Rekonstruktion:
-      //(neighbour as any).parent = node;
+      neighbour.parent = node; //Set the parent
     }
 
     neighbours.push(neighbour);

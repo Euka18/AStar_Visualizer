@@ -31,6 +31,7 @@ export function setupGrid(grid, sizeX, sizeY) {
                 isObstacle: false,
                 isStart: false,
                 isEnd: false,
+                parent: null,
                 tile,
             };
             tile.addEventListener("mouseover", (e) => {

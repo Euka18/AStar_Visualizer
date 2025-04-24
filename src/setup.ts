@@ -39,6 +39,7 @@ export function setupGrid(
         isObstacle: false,
         isStart: false,
         isEnd: false,
+        parent: null,
         tile,
       };
 

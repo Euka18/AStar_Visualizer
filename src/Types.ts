@@ -7,6 +7,7 @@ export interface GridObject {
   isObstacle: boolean;
   isStart: boolean;
   isEnd: boolean;
+  parent: GridObject | null;
   tile: HTMLDivElement;
 }
 
