@@ -51,7 +51,7 @@ export async function AStar(
 
       if (closeList.has(key)) continue;
 
-      //Take the node out of the map (lookup of O(1) because of the hashing)
+      //Take the node out of the map if it exists! (lookup of O(1) because of the hashing)
       const existingNode = openSetMap.get(key);
 
       if (!existingNode) {
