@@ -64,8 +64,6 @@ export async function AStar(
         existingNode.h = node.h;
         existingNode.f = node.f;
         existingNode.parent = node.parent;
-
-        openList.insert(existingNode);
       }
     }
 

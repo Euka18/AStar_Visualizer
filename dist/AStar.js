@@ -39,7 +39,7 @@ export function AStar(startTile, endTile, gridTiles, sizeX, sizeY) {
                 const key = `${node.x},${node.y}`;
                 if (closeList.has(key))
                     continue;
-                //Take the node out of the map (lookup of O(1) because of the hashing)
+                //Take the node out of the map if it exists! (lookup of O(1) because of the hashing)
                 const existingNode = openSetMap.get(key);
                 if (!existingNode) {
                     //Node is not in the openlist
@@ -52,7 +52,7 @@ export function AStar(startTile, endTile, gridTiles, sizeX, sizeY) {
                     existingNode.h = node.h;
                     existingNode.f = node.f;
                     existingNode.parent = node.parent;
-                    openList.insert(existingNode);
+                    //openList.insert(existingNode);
                 }
             }
             yield wait(50);
