@@ -26,10 +26,12 @@ export function setupGrid(
     for (let x = 0; x < sizeX; x++) {
       if (!gridTiles[x]) gridTiles[x] = [];
 
+      //Create the tile div
       const tile = document.createElement("div");
       tile.classList.add("tile");
       grid.appendChild(tile);
 
+      //Create the Gridobject
       const gridTile: GridObject = {
         f: Infinity,
         g: Infinity,

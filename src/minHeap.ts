@@ -14,6 +14,7 @@ export class minHeap {
       //From Child to Parent: (index - 1) / 2
       const parentIndex = Math.floor((index - 1) / 2);
 
+      //Find the right spot by iterating from bottom to the right index. If the parent is smaller, swap them!
       if (this.heap[index].f < this.heap[parentIndex].f) {
         let temp = this.heap[parentIndex];
         this.heap[parentIndex] = this.heap[index];

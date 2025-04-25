@@ -21,6 +21,7 @@ export function calculateHeuristicEuclidean(
   return Math.sqrt(dx + dy);
 }
 
+//Manhatten Heuristic
 export function calculateHeuristicManhatten(
   a: GridObject,
   b: GridObject
